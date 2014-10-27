@@ -1,0 +1,687 @@
+{
+  "name": "Domain",
+  "children": [
+    {
+      "name": "peer circle 1",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 2",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 3",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 4",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 5",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 6",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 7",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 8",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 9",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 10",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 11",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "name": "peer circle 12",
+      "children": [
+        {
+          "name": "moderator1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        },
+        {
+          "name": "student1",
+          "size": 10
+        }
+      ]
+    }
+  ]
+}
+
+
