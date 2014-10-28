@@ -8,6 +8,43 @@ body {
   border: 1px solid #DFDFDF;
 }
 
+/* svg circles */
+.node {
+  cursor: pointer;
+}
+.peercircle:hover {
+  stroke: #565656;
+  stroke-width: 1.5px;
+}
+.selected {
+  stroke: #565656;
+  stroke-width: 1.5px;
+}
+.node--leaf {
+  fill: white;
+  stroke: #000;
+  stroke-width: 0.35px;
+}
+
+.circlecontainer {
+  fill: #fff;
+}
+.good {
+  fill: #98D194; /* #dff0d8; #5cb85c; */
+}
+.toomany {
+  fill: #E49290; /* #f2dede; #d9534f; */
+}
+.toofew {
+  fill: #F5CF92; /* #fcf8e3; #f0ad4e; */
+}
+.moderator {
+  fill: #565656;
+}
+.student {
+  fill: #fff;
+}
+
 
 /* tooltip */
 .tiptitle {

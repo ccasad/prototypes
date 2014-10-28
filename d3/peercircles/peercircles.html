@@ -2,40 +2,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<style>
-.node {
-  cursor: pointer;
-}
-.peercircle:hover {
-  stroke: #565656;
-  stroke-width: 1.5px;
-}
-
-.node--leaf {
-  fill: white;
-  stroke: #000;
-  stroke-width: 0.35px;
-}
-
-.circlecontainer {
-  fill: #fff;
-}
-.good {
-  fill: #98D194; /* #dff0d8; #5cb85c; */
-}
-.toomany {
-  fill: #E49290; /* #f2dede; #d9534f; */
-}
-.toofew {
-  fill: #F5CF92; /* #fcf8e3; #f0ad4e; */
-}
-.moderator {
-  fill: #565656;
-}
-.student {
-  fill: #fff;
-}
-</style>
 <link rel="stylesheet" type="css" href="styles.css">
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="../d3-tooltip/d3-tooltip.js"></script>
@@ -122,6 +88,7 @@ d3.json("peercircles.php", function(error, root) {
       })
       .on('mouseout', tip.hide)
       .on("click", function(d) {
+
         if (focus !== d) {
           zoom(d), d3.event.stopPropagation(); 
         }
@@ -131,6 +98,15 @@ d3.json("peercircles.php", function(error, root) {
         } else {
           document.getElementById('pcdetails').style.display='none';
         }
+
+        // remove selected class from any other circle
+        d3.selectAll('circle').classed('selected', false);
+
+        // add selected class to current circle
+        if (d.depth > 0) {
+          d3.select(this).classed('selected', true);
+        }
+        
       });
 
   var node = svg.selectAll("circle");

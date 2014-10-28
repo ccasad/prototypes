@@ -4,7 +4,7 @@ $json = '';
 $firstNames = array('Mark', 'Steve', 'John', 'Terence', 'Phillip', 'Harry', 'Lloyd', 'Kristin', 'Melissa', 'Patricia', 'Kimberly', 'Sarah', 'Amanda', 'William', 'Peter');
 $lastNames = array('Robinson', 'Martinez', 'Garcia', 'Jackson', 'Anderson', 'Taylor', 'Moore', 'Wilson', 'Miller', 'Davis', 'Brown', 'Jones', 'Williams', 'Johnson', 'Smith');
 
-$domain = array('name' => 'Domain1', 'size' => 10);
+$category = array('name' => 'Career Counseling Category', 'size' => 10);
 
 $idealNumStudents = 13;
 $peerCircleStatus = 1;   // 1=good, 2=toofew, 3=toomany
@@ -50,6 +50,6 @@ for ($i = 1;$i < 200;$i++) {
 	$peerCircles[] = $peerCircle;
 }
 
-$domain['children'] = $peerCircles;
+$category['children'] = $peerCircles;
 
-echo json_encode($domain);
+echo json_encode($category);
