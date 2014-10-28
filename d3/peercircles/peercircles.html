@@ -6,7 +6,7 @@
 .node {
   cursor: pointer;
 }
-.node:hover {
+.peercircle:hover {
   stroke: #565656;
   stroke-width: 1.5px;
 }
@@ -20,13 +20,13 @@
 .circlecontainer {
   fill: #fff;
 }
-.peercircle-good {
+.good {
   fill: #98D194; /* #dff0d8; #5cb85c; */
 }
-.peercircle-toomany {
+.toomany {
   fill: #E49290; /* #f2dede; #d9534f; */
 }
-.peercircle-toofew {
+.toofew {
   fill: #F5CF92; /* #fcf8e3; #f0ad4e; */
 }
 .moderator {
@@ -38,16 +38,23 @@
 </style>
 <link rel="stylesheet" type="css" href="styles.css">
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="d3-tooltip/d3-tooltip.js"></script>
+<script src="../d3-tooltip/d3-tooltip.js"></script>
 </head>
 <body>
 
+<svg style="float:left;"></svg>
+
+<div style="float:left; margin-left:40px;">
+  <div id="pcdetails" style="margin:15px; display:none;"></div>  
+</div>
 
 <script>
 
 var margin = 50;
 var diameter = 600;
-var peerCircleStudentNum = 12;
+var peerCircleStudentNum = 13;
+var isTopZoom = true;
+var currentZoomed;
 
 var pack = d3.layout.pack()
   .padding(5)
@@ -58,11 +65,10 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(data) {
-    //console.log(data);
     return getTooltipInfo(data);
   });
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("svg")
   .attr("width", diameter)
   .attr("height", diameter)
   .append("g")
@@ -87,11 +93,11 @@ d3.json("peercircles.php", function(error, root) {
         if (d.parent) {
           if (d.children) {
             if (d.children.length > peerCircleStudentNum) {
-              cssClass = "node peercircle-toomany";
+              cssClass = "node peercircle toomany";
             } else if (d.children.length < peerCircleStudentNum) {
-              cssClass = "node peercircle-toofew";
+              cssClass = "node peercircle toofew";
             } else {
-              cssClass = "node peercircle-good";
+              cssClass = "node peercircle good";
             }
           } else {
             if (d.type == 1) {
@@ -105,11 +111,25 @@ d3.json("peercircles.php", function(error, root) {
         }
         return cssClass; 
       })
-      .on('mouseover', tip.show)
+      .on('mouseover', function(d) {
+        if (d.depth !== 0) {
+          if (isTopZoom && d.depth === 1) {
+            tip.show(d);
+          } else if (!isTopZoom && (d.depth === 1 || d.depth === 2)) {
+            tip.show(d);
+          }
+        }
+      })
       .on('mouseout', tip.hide)
-      .on("click", function(d) { 
+      .on("click", function(d) {
         if (focus !== d) {
           zoom(d), d3.event.stopPropagation(); 
+        }
+        currentZoomed = d;
+        if (d.depth === 1) {
+          showPeerCircleDetails(d);
+        } else {
+          document.getElementById('pcdetails').style.display='none';
         }
       });
 
@@ -117,12 +137,18 @@ d3.json("peercircles.php", function(error, root) {
 
   d3.select("body")
     .on("click", function() { 
-      zoom(root); 
+      //zoom(root); // when uncommented this will zoom out if click same peer circle
     });
 
   zoomTo([root.x, root.y, root.r * 2 + margin]);
 
   function zoom(d) {
+
+    isTopZoom = false;
+    if (d === root) {
+      isTopZoom = true;
+    }
+
     var focus0 = focus; 
     focus = d;
 
@@ -151,16 +177,38 @@ d3.json("peercircles.php", function(error, root) {
 
 d3.select(self.frameElement).style("height", diameter + "px");
 
-function getTooltipInfo(data) {
+function showPeerCircleDetails(d) {
 
-  var bodyText = '<div># Moderators: <strong>' + data.moderatorCount + '</strong></div>' +
-                 '<div># Students: <strong>' + data.studentCount + '</strong></div>';
-  if (data.hasOwnProperty('type')) {
-    bodyText = 'this would have the picture of the student and maybe their email?';
+  var html = '<h2>' + d.name + '</h2>';
+
+  for (var i=0;i < d.children.length;i++) {
+    var child = d.children[i];
+    var typeName = (child.type === 1) ? ' <em>(Moderator)</em>' : '';
+    var randNum = randomIntFromInterval(0, 9);
+    html += '<img src="images/person'+randNum+'.jpg" style="float:left;" class="avatar" />' + 
+            '<div style="float:left; margin-left:10px;">' + child.name + typeName + '</div>' +
+            '<div style="clear:both;"></div>';
+  }
+
+  document.getElementById('pcdetails').innerHTML = html;
+  document.getElementById('pcdetails').style.display='inline';
+}
+
+function getTooltipInfo(d) {
+
+  var bodyText = '<div># Moderators: <strong>' + d.moderatorCount + '</strong></div>' +
+                 '<div># Students: <strong>' + d.studentCount + '</strong></div>';
+  
+  if (d.hasOwnProperty('type')) {
+    var typeName = (d.type === 1) ? 'Moderator' : 'Member';
+    var randNum = randomIntFromInterval(0, 9);
+    bodyText = '<img src="images/person'+randNum+'.jpg" style="float:left;" class="avatar" />'+
+               '<div style="float:left; margin-left:10px;">' + typeName + '</div>' +
+               '<div style="clear:both;"></div>';
   }
 
   var info = '<div>' +
-             '  <div class="tiptitle">' + data.name + '</div>' +
+             '  <div class="tiptitle">' + d.name + '</div>' +
              '  <div class="tipbody">' +
              '    <div class="tipbodytext">' + bodyText + '</div>' +
              '    <div style="clear:both;"></div>' +
@@ -169,7 +217,9 @@ function getTooltipInfo(data) {
 
   return info;
 }
-
+function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
 </script>
 
 </body>

@@ -1,6 +1,9 @@
 <?php
 $json = '';
 
+$firstNames = array('Mark', 'Steve', 'John', 'Terence', 'Phillip', 'Harry', 'Lloyd', 'Kristin', 'Melissa', 'Patricia', 'Kimberly', 'Sarah', 'Amanda', 'William', 'Peter');
+$lastNames = array('Robinson', 'Martinez', 'Garcia', 'Jackson', 'Anderson', 'Taylor', 'Moore', 'Wilson', 'Miller', 'Davis', 'Brown', 'Jones', 'Williams', 'Johnson', 'Smith');
+
 $domain = array('name' => 'Domain1', 'size' => 10);
 
 $idealNumStudents = 13;
@@ -29,7 +32,8 @@ for ($i = 1;$i < 200;$i++) {
 			$studentCount++;
 		}
 
-		$member = array('name' => 'Member '.$j, 'size' => 10, 'type' => $type);
+		$name = $firstNames[rand(0, 14)] . ' ' . $lastNames[rand(0, 14)];
+		$member = array('name' => $name, 'size' => 10, 'type' => $type);
 		$children[] = $member;
 	}
 	$peerCircle['children'] = $children;
