@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<html>
+<head>
 <meta charset="utf-8">
 <style>
-
 .node {
   cursor: pointer;
 }
@@ -20,13 +21,13 @@
   fill: #fff;
 }
 .peercircle-good {
-  fill: #5cb85c;
+  fill: #98D194; /* #dff0d8; #5cb85c; */
 }
 .peercircle-toomany {
-  fill: #d9534f;
+  fill: #E49290; /* #f2dede; #d9534f; */
 }
 .peercircle-toofew {
-  fill: #f0ad4e;
+  fill: #F5CF92; /* #fcf8e3; #f0ad4e; */
 }
 .moderator {
   fill: #565656;
@@ -34,23 +35,14 @@
 .student {
   fill: #fff;
 }
-
-
-.label {
-  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-anchor: middle;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
-}
-
-.label,
-.node--root,
-.node--leaf {
-  pointer-events: none;
-}
-
 </style>
-<body>
+<link rel="stylesheet" type="css" href="styles.css">
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="d3-tooltip/d3-tooltip.js"></script>
+</head>
+<body>
+
+
 <script>
 
 var margin = 50;
@@ -62,13 +54,23 @@ var pack = d3.layout.pack()
   .size([diameter - margin, diameter - margin])
   .value(function(d) { return d.size; });
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(data) {
+    //console.log(data);
+    return getTooltipInfo(data);
+  });
+
 var svg = d3.select("body").append("svg")
   .attr("width", diameter)
   .attr("height", diameter)
   .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-d3.json("peercircles.json", function(error, root) {
+svg.call(tip);
+
+d3.json("peercircles.php", function(error, root) {
   if (error) {
     return console.error(error);
   }
@@ -103,6 +105,8 @@ d3.json("peercircles.json", function(error, root) {
         }
         return cssClass; 
       })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
       .on("click", function(d) { 
         if (focus !== d) {
           zoom(d), d3.event.stopPropagation(); 
@@ -147,4 +151,26 @@ d3.json("peercircles.json", function(error, root) {
 
 d3.select(self.frameElement).style("height", diameter + "px");
 
+function getTooltipInfo(data) {
+
+  var bodyText = '<div># Moderators: <strong>' + data.moderatorCount + '</strong></div>' +
+                 '<div># Students: <strong>' + data.studentCount + '</strong></div>';
+  if (data.hasOwnProperty('type')) {
+    bodyText = 'this would have the picture of the student and maybe their email?';
+  }
+
+  var info = '<div>' +
+             '  <div class="tiptitle">' + data.name + '</div>' +
+             '  <div class="tipbody">' +
+             '    <div class="tipbodytext">' + bodyText + '</div>' +
+             '    <div style="clear:both;"></div>' +
+             '  </div>' +
+             '</div>';
+
+  return info;
+}
+
 </script>
+
+</body>
+</html>
