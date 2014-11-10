@@ -30,8 +30,7 @@
 <script src="../d3-tooltip/d3-tooltip.js"></script>
 
 <script>
-
-var margin = {top: 50, right: 120, bottom: 20, left: 120},
+var margin = {top: 50, right: 20, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
     
@@ -55,17 +54,21 @@ var tip = d3.tip()
 
 function getTooltipInfo(data) {
 
-  var nickname = data.nickname ? '(' + data.nickname + ')' : '';
+  var shortname = data.shortname ? '(' + data.shortname + ')' : '';
+  var maidenname = data.maidenname ? '(' + data.maidenname + ')' : '';
+  var namesuffix = data.namesuffix ? data.namesuffix : '';
+  var married = data.marriedyno == 'Y' ? '<div>Married: <strong>' + data.spousename + '</strong></div>' : '';
+  var birthdate = data.birthdate.length > 0 ? data.birthdate : 'Unknown';
+  var deathdate = data.deathdate.length > 0 ? '<div>Died: <strong>' + data.deathdate + '</strong></div>' : '';
 
   var info = '<div>' +
-             '  <div class="tiptitle">' + data.firstname + ' ' + nickname + ' ' + data.lastname + '</div>' +
+             '  <div class="tiptitle">' + data.firstname + ' ' + maidenname + ' ' + data.lastname + ' ' + namesuffix + '</div>' +
              '  <div class="tipbody">' +
-             '    <img src="images/q.png" class="tipbodyimg" />' +
+             '    <img src="images/' + data.avatarsrc + '" class="tipbodyimg" />' +
              '    <div class="tipbodytext">' +
-             '      <div>Married: <strong>' + data.married + '</strong></div>' +
-             '      <div>Born: <strong>' + data.born + '</strong></div>' +
-             '      <div>Died: <strong>' + data.died + '</strong></div>' +
-             '      <div>Lives in: <strong>' + data.location + '</strong></div>' +
+             married +
+             '      <div>Born: <strong>' + birthdate + '</strong></div>' +
+             deathdate +
              '    </div>' +
              '    <div style="clear:both;"></div>' +
              '  </div>' +
@@ -81,6 +84,12 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.call(tip);
+
+svg.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "yellow")
+    .style("opacity", 0.1);
 
 d3.json("family.php", function(error, flare) {
   root = flare;
@@ -101,10 +110,6 @@ d3.json("family.php", function(error, flare) {
 
 d3.select(self.frameElement).style("height", "800px");
 
-function getThumbnail() {
-  return 'images/person' + Math.floor((Math.random() * 9) + 1) + '.jpg';
-}
-
 function update(source) {
 
   // Compute the new tree layout.
@@ -117,23 +122,6 @@ function update(source) {
   // Update the nodes…
   var node = svg.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
-
-/*
-  var defs = svg.append('svg:defs');
-  defs.append('svg:pattern')
-      .attr('id', 'personthumbnail')
-      .attr('patternUnits', 'userSpaceOnUse')
-      .attr('x', 20)
-      .attr('y', 20)
-      .attr('width', '40')
-      .attr('height', '40')
-      .append('svg:image')
-      .attr('xlink:href', function(d) { return 'images/person'+d.id+'.jpg'; })
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', 40)
-      .attr('height', 40);
-*/
 
   // Enter any new nodes at the parent's previous position.
   var nodeEnter = node.enter().append("g")
@@ -149,7 +137,7 @@ function update(source) {
       .attr('width', '40')
       .attr('height', '40')
       .append('svg:image')
-      .attr('xlink:href', function(d) { return 'images/person'+d.id+'.jpg'; })
+      .attr('xlink:href', function(d) { return 'images/'+d.avatarsrc; })
       .attr('x', 0)
       .attr('y', 0)
       .attr('width', 40)
@@ -177,7 +165,7 @@ function update(source) {
       //.attr("dx", ".15em")
       .attr("dx", "-1.0em")
       .attr("text-anchor", function(d) { return "end"; })
-      .text(function(d) { return d.nickname || d.firstname; })
+      .text(function(d) { return d.shortname || d.firstname; })
       .style("fill-opacity", 1e-6)
       .style("font", 'bold 12px "Helvetica Neue", Helvetica, Arial, sans-serif');
 

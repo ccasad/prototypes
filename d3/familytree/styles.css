@@ -17,6 +17,7 @@ body {
   float: left;
   border: 1px solid #cccccc;
   margin-right: 7px;
+  height: 40px;
 }
 .tipbodytext {
   float: left;
