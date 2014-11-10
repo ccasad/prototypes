@@ -31,7 +31,7 @@
 
 <script>
 
-var margin = {top: 20, right: 120, bottom: 20, left: 120},
+var margin = {top: 50, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
     
@@ -82,7 +82,7 @@ var svg = d3.select("body").append("svg")
 
 svg.call(tip);
 
-d3.json("family.json", function(error, flare) {
+d3.json("family.php", function(error, flare) {
   root = flare;
   root.x0 = height / 2;
   root.y0 = 0;
@@ -101,6 +101,10 @@ d3.json("family.json", function(error, flare) {
 
 d3.select(self.frameElement).style("height", "800px");
 
+function getThumbnail() {
+  return 'images/person' + Math.floor((Math.random() * 9) + 1) + '.jpg';
+}
+
 function update(source) {
 
   // Compute the new tree layout.
@@ -114,21 +118,64 @@ function update(source) {
   var node = svg.selectAll("g.node")
       .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
+/*
+  var defs = svg.append('svg:defs');
+  defs.append('svg:pattern')
+      .attr('id', 'personthumbnail')
+      .attr('patternUnits', 'userSpaceOnUse')
+      .attr('x', 20)
+      .attr('y', 20)
+      .attr('width', '40')
+      .attr('height', '40')
+      .append('svg:image')
+      .attr('xlink:href', function(d) { return 'images/person'+d.id+'.jpg'; })
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', 40)
+      .attr('height', 40);
+*/
+
   // Enter any new nodes at the parent's previous position.
   var nodeEnter = node.enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
       .on("click", click);
 
+  nodeEnter.append('pattern')
+      .attr('id', 'personthumbnail')
+      .attr('patternUnits', 'userSpaceOnUse')
+      .attr('x', 20)
+      .attr('y', 20)
+      .attr('width', '40')
+      .attr('height', '40')
+      .append('svg:image')
+      .attr('xlink:href', function(d) { return 'images/person'+d.id+'.jpg'; })
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', 40)
+      .attr('height', 40);
+
+  nodeEnter.append("circle")
+      .attr("r", 20)
+      .style("fill", "transparent")       // this code works OK
+      .style("stroke", "black")     // displays small black dot
+      .style("stroke-width", 0.25)
+      .style("fill", "url(#personthumbnail)")
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+/*
   nodeEnter.append("circle")
       .attr("r", 1e-6)
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+*/
 
   nodeEnter.append("text")
-      .attr("y", function(d) { return -10; })
-      .attr("dx", ".15em")
+      .attr("y", function(d) { return -20; })
+      //.attr("dx", ".15em")
+      .attr("dx", "-1.0em")
       .attr("text-anchor", function(d) { return "end"; })
       .text(function(d) { return d.nickname || d.firstname; })
       .style("fill-opacity", 1e-6)
@@ -139,9 +186,11 @@ function update(source) {
       .duration(duration)
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
+/*
   nodeUpdate.select("circle")
       .attr("r", 4.5)
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+*/
 
   nodeUpdate.select("text")
       .style("fill-opacity", 1);
@@ -152,8 +201,8 @@ function update(source) {
       .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
       .remove();
 
-  nodeExit.select("circle")
-      .attr("r", 1e-6);
+  //nodeExit.select("circle")
+  //    .attr("r", 1e-6);
 
   nodeExit.select("text")
       .style("fill-opacity", 1e-6);

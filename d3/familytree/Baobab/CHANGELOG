@@ -1,0 +1,39 @@
+v1.3.1 (2014-08-17)
+
+* in certain conditions deleting a node in a tree was
+  modifying nodes in different trees (thanks to
+  Ramon Ackermann <ramon.ackermann@gmail.com>).
+* moving a node to a different tree at the same left
+  position was ineffective
+
+v1.3.0 (2014-03-09)
+
+* moveNodeAtIndex() didn't preserve the requested index when
+  moving a node after a greater (at his right) sibling
+* moving a first child node to index 0 with moveNodeAtIndex
+  incorrectly produced an error
+
+v1.2.1 (2014-01-26)
+
+* code linting
+* added composer.json
+
+v1.2.0 (2014-01-19)
+
+* insertNodeAtIndex can insert nodes at index 0
+* moveNodeAtIndex can move nodes at index 0
+
+v1.1.1 (2014-01-11)
+
+* added a README file in the test directory
+* fixed version in the sql main file (was too old)
+* added this CHANGELOG file
+
+v1.1 (2013-12-29)
+
+* fixed errors caused by new default behaviour of MySQL 5.5
+  during subtractions between positive integers
+
+v1.0 (2011-01-29)
+
+* first public release
