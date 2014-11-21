@@ -10,9 +10,9 @@
         },
         link: function(scope, iElement, iAttrs) {
 
-          var margin = {top: 50, right: 20, bottom: 20, left: 120},
-              width = 960 - margin.right - margin.left,
-              height = 800 - margin.top - margin.bottom;
+          var margin = {top: 50, right: 20, bottom: 20, left: 20},
+              width = 600 - margin.right - margin.left,
+              height = 600 - margin.top - margin.bottom;
               
           var i = 0,
               duration = 750,
@@ -30,17 +30,10 @@
             .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-          svg.append("rect")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr("fill", "yellow")
-            .style("opacity", 0.1);
-
           // on window resize, re-render d3 canvas
           window.onresize = function() {
             return scope.$apply();
           };
-          
           
           scope.$watch(function(){
               return angular.element(window)[0].innerWidth;
@@ -65,6 +58,7 @@
             root.x0 = height / 2;
             root.y0 = 0;
 
+            // collapses the entire tree to start
             function collapse(d) {
               if (d.children) {
                 d._children = d.children;
@@ -73,20 +67,27 @@
               }
             }
 
-            root.children.forEach(collapse);
-            scope.update(root);
+            //root.children.forEach(collapse);
+            
+            update(root);
 
-            d3.select(self.frameElement).style("height", "800px");
+            d3.select(self.frameElement).style("height", "600px");
 
           };
 
-          scope.update = function(source) {
+          function update(source) {
             // Compute the new tree layout.
             var nodes = tree.nodes(root).reverse();
             var links = tree.links(nodes);
 
-            // Normalize for fixed-depth.
-            nodes.forEach(function(d) { d.y = d.depth * 180; });
+            // Normalize for fixed-depth. Defines the distance between nodes
+            nodes.forEach(function(d) { 
+              d.y = d.depth * 100;
+              console.log(d);
+              if (d.id === 0) {
+                d.y = 0;
+              }
+            });
 
             // Update the nodes…
             var node = svg.selectAll("g.node")
@@ -96,7 +97,7 @@
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
-                .on("click", scope.click);
+                .on("click", toggle);
 
             nodeEnter.append('pattern')
                 .attr('id', 'personthumbnail')
@@ -106,7 +107,7 @@
                 .attr('width', '40')
                 .attr('height', '40')
                 .append('svg:image')
-                .attr('xlink:href', function(d) { return 'images/'+d.avatarsrc; })
+                .attr('xlink:href', function(d) { return (d.avatarsrc) ? 'images/'+d.avatarsrc : 'images/person0.jpg'; })
                 .attr('x', 0)
                 .attr('y', 0)
                 .attr('width', 40)
@@ -179,7 +180,7 @@
           }
 
           // Toggle children on click.
-          scope.click = function(d) {
+          function toggle(d) {
             if (d.children) {
               d._children = d.children;
               d.children = null;
@@ -191,84 +192,6 @@
           }
         }
       }
-    }])
-    .directive('d3Bars', ['d3', function(d3) {
-      return {
-        restrict: 'EA',
-        scope: {
-          data: "=",
-          label: "@",
-          onClick: "&"
-        },
-        link: function(scope, iElement, iAttrs) {
-          var svg = d3.select(iElement[0])
-              .append("svg")
-              .attr("width", "100%");
-
-          // on window resize, re-render d3 canvas
-          window.onresize = function() {
-            return scope.$apply();
-          };
-          scope.$watch(function(){
-              return angular.element(window)[0].innerWidth;
-            }, function(){
-              return scope.render(scope.data);
-            }
-          );
-
-          // watch for data changes and re-render
-          scope.$watch('data', function(newVals, oldVals) {
-            return scope.render(newVals);
-          }, true);
-
-          // define render function
-          scope.render = function(data){
-            // remove all previous items before render
-            svg.selectAll("*").remove();
-
-            // setup variables
-            var width, height, max;
-            width = d3.select(iElement[0])[0][0].offsetWidth - 20;
-              // 20 is for margins and can be changed
-            height = scope.data.length * 35;
-              // 35 = 30(bar height) + 5(margin between bars)
-            max = 98;
-              // this can also be found dynamically when the data is not static
-              // max = Math.max.apply(Math, _.map(data, ((val)-> val.count)))
-
-            // set the height based on the calculations above
-            svg.attr('height', height);
-
-            //create the rectangles for the bar chart
-            svg.selectAll("rect")
-              .data(data)
-              .enter()
-                .append("rect")
-                .on("click", function(d, i){return scope.onClick({item: d});})
-                .attr("height", 30) // height of each bar
-                .attr("width", 0) // initial width of 0 for transition
-                .attr("x", 10) // half of the 20 side margin specified above
-                .attr("y", function(d, i){
-                  return i * 35;
-                }) // height + margin between bars
-                .transition()
-                  .duration(1000) // time of duration
-                  .attr("width", function(d){
-                    return d.score/(max/width);
-                  }); // width based on scale
-
-            svg.selectAll("text")
-              .data(data)
-              .enter()
-                .append("text")
-                .attr("fill", "#fff")
-                .attr("y", function(d, i){return i * 35 + 22;})
-                .attr("x", 15)
-                .text(function(d){return d[scope.label];});
-
-          };
-        }
-      };
     }]);
 
 }());

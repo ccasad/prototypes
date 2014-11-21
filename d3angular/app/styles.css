@@ -81,3 +81,8 @@ body {
   top: 50%;
   left: 100%;
 }
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}

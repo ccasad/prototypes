@@ -63,8 +63,9 @@
 						'<li data-ng-repeat="node in ' + treeModel + '">' +
 							'<div data-ng-class="{\'bg-warning\': selectedNode==node.id}" data-ng-mouseenter="selectedrow=node.id" data-ng-mouseleave="selectedrow=null">' +
 								'<img data-ng-src="/images/{{node.imgsrc}}" class="avatar" />' +
-								'<a href="javascript:void(0);" data-ng-hide="node.label==\'Unoccupied\'">{{node.' + nodeLabel + '}}</a>' +
-								'<span data-ng-hide="node.label!=\'Unoccupied\'" data-ng-class="{\'text-danger\': node.label==\'Unoccupied\'}">{{node.' + nodeLabel + '}}</span> <em class="text-muted helptext">({{node.role}})</em> <a href="javascript:void(0);" class="edit" data-ng-show="selectedrow==node.id" data-ng-click="selectedNode=node.id">[edit]</a>' +
+								'<a href="javascript:void(0);" data-ng-hide="node.label==\'Unoccupied\'" data-ng-click="showit=node.id">{{node.' + nodeLabel + '}}</a>' +
+								'<span data-ng-hide="node.label!=\'Unoccupied\'" data-ng-class="{\'text-danger\': node.label==\'Unoccupied\'}">{{node.' + nodeLabel + '}}</span> ' +
+								'<em class="text-muted helptext">({{node.role}})</em> <a href="javascript:void(0);" class="edit" data-ng-show="selectedrow==node.id" data-ng-click="selectedNode=node.id">[edit]</a>' +
 							'</div>' +
 							'<div data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
 						'</li>' +
