@@ -6,7 +6,8 @@
       return {
         restrict: 'EA',
         scope: {
-          data: "="
+          data: "=",
+          click: "&"
         },
         link: function(scope, iElement, iAttrs) {
 
@@ -42,15 +43,14 @@
             }
           );
           
-          /*
           // watch for data changes and re-render
-          scope.$watch('data', function(newVals, oldVals) {
-            return scope.render(newVals);
-          }, true);
-          */
+          //scope.$watch('data', function(newVals, oldVals) {
+          //  return scope.render(newVals);
+          //}, true);
 
           // define render function
           scope.render = function(data){
+            
             // remove all previous items before render
             svg.selectAll("*").remove();
 
@@ -68,7 +68,7 @@
             }
 
             //root.children.forEach(collapse);
-            
+
             update(root);
 
             d3.select(self.frameElement).style("height", "600px");
@@ -83,10 +83,6 @@
             // Normalize for fixed-depth. Defines the distance between nodes
             nodes.forEach(function(d) { 
               d.y = d.depth * 100;
-              console.log(d);
-              if (d.id === 0) {
-                d.y = 0;
-              }
             });
 
             // Update the nodes…
@@ -181,6 +177,10 @@
 
           // Toggle children on click.
           function toggle(d) {
+            
+            scope.click()(d);
+            scope.$apply();
+
             if (d.children) {
               d._children = d.children;
               d.children = null;
@@ -190,6 +190,8 @@
             }
             update(d);
           }
+
+
         }
       }
     }]);
