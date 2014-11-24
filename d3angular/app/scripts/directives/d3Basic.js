@@ -35,7 +35,6 @@
           // on window resize, re-render d3 canvas
           window.onresize = function() {
             return scope.$apply();
-          //  return scope.render(scope.data);
           };
           
           // Watch for resize event
@@ -48,8 +47,6 @@
           
           // watch for data changes and re-render
           scope.$watch('timestamp', function(newVals, oldVals) {
-            //console.log(scope.timestamp);
-            //console.log(scope.data);
             return scope.render(scope.data);
           }, true);
 
