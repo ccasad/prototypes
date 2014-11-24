@@ -9,16 +9,19 @@
   <body ng-app="myApp">
 
     <div ng-controller="DemoCtrl3">
-      <d3-tree data="d3Data" style="float:left;" click="getDetails"></d3-tree>
+      <d3-tree data="d3Data" style="float:left;" click="getDetails" timestamp="{{timestamp}}"></d3-tree>
 
       <div style="background-color:cornsilk; float:left;">
         <h3>Person Details</h3>
         <p>First Name: <span data-ng-bind="person.firstname"></span></p>
         <p>Last Name: <span data-ng-bind="person.lastname"></span></p>
+
+        <select data-ng-model="selectedPerson" data-ng-options="dude.firstname+' '+dude.lastname for dude in newpeople"></select>
         <button data-ng-click="addChild()">Add Child</button>
       </div>
     </div>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.compat.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/services/d3.js"></script>

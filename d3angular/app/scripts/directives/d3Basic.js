@@ -7,7 +7,8 @@
         restrict: 'EA',
         scope: {
           data: "=",
-          click: "&"
+          click: "&",
+          timestamp: "@"
         },
         link: function(scope, iElement, iAttrs) {
 
@@ -32,11 +33,12 @@
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
           // on window resize, re-render d3 canvas
-          //window.onresize = function() {
-          //  return scope.$apply();
+          window.onresize = function() {
+            return scope.$apply();
           //  return scope.render(scope.data);
-          //};
+          };
           
+          // Watch for resize event
           scope.$watch(function(){
               return angular.element(window)[0].innerWidth;
             }, function(){
@@ -45,8 +47,10 @@
           );
           
           // watch for data changes and re-render
-          scope.$watch('data', function(newVals, oldVals) {
-            return scope.render(newVals);
+          scope.$watch('timestamp', function(newVals, oldVals) {
+            //console.log(scope.timestamp);
+            //console.log(scope.data);
+            return scope.render(scope.data);
           }, true);
 
           // define render function
@@ -114,7 +118,6 @@
 
             nodeEnter.append("circle")
                 .attr("r", 20)
-                .style("fill", "transparent")
                 .classed('normal', true)
                 .style("fill", "url(#personthumbnail)")
                 .on("click", function(d) {
@@ -205,7 +208,6 @@
             update(d);
 
           }
-
 
         }
       }
