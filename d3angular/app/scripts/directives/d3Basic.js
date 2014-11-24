@@ -32,9 +32,10 @@
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
           // on window resize, re-render d3 canvas
-          window.onresize = function() {
-            return scope.$apply();
-          };
+          //window.onresize = function() {
+          //  return scope.$apply();
+          //  return scope.render(scope.data);
+          //};
           
           scope.$watch(function(){
               return angular.element(window)[0].innerWidth;
@@ -44,9 +45,9 @@
           );
           
           // watch for data changes and re-render
-          //scope.$watch('data', function(newVals, oldVals) {
-          //  return scope.render(newVals);
-          //}, true);
+          scope.$watch('data', function(newVals, oldVals) {
+            return scope.render(newVals);
+          }, true);
 
           // define render function
           scope.render = function(data){
@@ -93,7 +94,9 @@
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
-                .on("click", toggle);
+                .on("click", function(d) {
+                  //toggle(d);
+                });
 
             nodeEnter.append('pattern')
                 .attr('id', 'personthumbnail')
@@ -111,10 +114,23 @@
 
             nodeEnter.append("circle")
                 .attr("r", 20)
-                .style("fill", "transparent")       // this code works OK
-                .style("stroke", "black")     // displays small black dot
-                .style("stroke-width", 0.25)
-                .style("fill", "url(#personthumbnail)");
+                .style("fill", "transparent")
+                .classed('normal', true)
+                .style("fill", "url(#personthumbnail)")
+                .on("click", function(d) {
+                  // ignore the top level
+                  if (d.depth > 0) {
+                    // remove selected class from any other circle
+                    d3.selectAll('circle').classed('selected', false);
+
+                    // add selected class to current circle
+                    d3.select(this).classed('selected', true);
+
+                    // update the angularjs side
+                    scope.click()(d);
+                    scope.$apply();
+                  }
+                });
 
             nodeEnter.append("text")
                 .attr("y", function(d) { return -20; })
@@ -177,10 +193,8 @@
 
           // Toggle children on click.
           function toggle(d) {
-            
-            scope.click()(d);
-            scope.$apply();
 
+            // expands/contracts children nodes
             if (d.children) {
               d._children = d.children;
               d.children = null;
@@ -189,6 +203,7 @@
               d._children = null;
             }
             update(d);
+
           }
 
 
